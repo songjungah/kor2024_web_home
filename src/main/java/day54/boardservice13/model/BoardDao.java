@@ -15,9 +15,9 @@ public class BoardDao {
     private BoardDao(){
         // ========== DB 연동 ========== //
         try{
-            Class.forName("com.mysql.cj.jabc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(
-                    "jabc:mysql://localhost::3307/mydb0102",
+                    "jdbc:mysql://localhost:3307/mydb0102",
                     "root", "1234");
         } catch (Exception e) {
             System.out.println(e);
@@ -89,15 +89,77 @@ public class BoardDao {
     }
 
     // 3. 게시물 개별 조회
-    public BoardDto findid(int bno) {
+    public BoardDto findId(int bno) {
+
+        try{
         
-        // 구현하기 전
+        // (1) SQL 작성한다.
+        String sql = "select * from board where bno = ?";
+        // (2) SQL 기재한다.
+        PreparedStatement ps = conn.prepareStatement(sql);
+        // (3) 기재된 SQL을 매개변수로 대입한다.
+        ps.setInt(1, bno);
+        // (4) 기재된 SQL 실행하고 결과를 반환받는다.
+        ResultSet rs = ps.executeQuery();
+        // (5) 실행결과에 따른 제어를 한다.
+        if (rs.next()) {
+            BoardDto boardDto = new BoardDto(
+                    // 현재 조회중인 레코드의 특정 속성의 값 반환, rs.get타입("필드명")
+                    rs.getInt("bno"),
+                    rs.getString("btitle"),
+                    rs.getString("bcontent"),
+                    rs.getString("bdate"),
+                    rs.getString("bwriter"),
+                    null    // 패스워드는 보안상 조회시 제외
+                );
+                return boardDto;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         return null;
     }
 
     // 4. 게시물 수정
+    public boolean update(BoardDto boardDto) {
+
+        try{
+            String sql = "update board set btitle = ?, bcontent = ? where bno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, boardDto.getBtitle());
+            ps.setString(2, boardDto.getBcontent());
+            ps.setInt(3, boardDto.getBno());
+            int count = ps.executeUpdate();
+            if (count == 1) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
 
 
     // 5. 게시물 삭제
+    public boolean delete(int bno) {
 
+        try {
+
+            // (1) SQL 작성한다.
+            String sql = "select * from board where bno = ?";
+            // (2) SQL 기재한다.
+            PreparedStatement ps = conn.prepareStatement(sql);
+            // (3) 기재된 SQL 의 매개변수를 대입한다.
+            ps.setInt(1, bno);
+            // (4) 기재된 SQL 실행하고 결과를 반환받는다.
+            int count = ps.executeUpdate();
+            // (5) 실행결과에 따른 제어한다.
+            if (count == 1) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    return false;
+    }
 }

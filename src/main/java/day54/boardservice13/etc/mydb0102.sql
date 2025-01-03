@@ -20,7 +20,7 @@ insert into board(btitle, bcontent, bwriter, bpwd) value ('안녕제목2', '안�
 insert into board(btitle, bcontent, bwriter, bpwd) value ('안녕제목3', '안녕내용3', '신동엽', '7890');
 
 # [JDBC] 게시물 쓰기
-insert into board(btitle, bcontent, bwriter, bpwd) values(?, ?, ?, ?);
+# insert into board(btitle, bcontent, bwriter, bpwd) values(?, ?, ?, ?);
 
 # [JDBC] 게시물 출력
 select * from board;
