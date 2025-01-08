@@ -20,10 +20,18 @@ repositories {
 dependencies {
     // [1] 스프링 웹 라이브러리 의존성
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    // [2] mySQL 라이브러리 의존성
     runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // [2] mysql 라이브러리 의존성
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // [3] 롬복 라이브러리 의존성
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // [4] 동적파일 : 타임리프 라이브러리 의존성
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
