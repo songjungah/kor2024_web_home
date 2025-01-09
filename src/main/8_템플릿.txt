@@ -47,6 +47,14 @@
 
     * 타임리프 문법 시작은 th:키워드
 
+    6. 동적파일(타임리프) HTTP의 URL 정의하기
+        @GetMapping("URL정의")
+        public String 메소드명(){
+            return "템플릿파일명";
+        }
+
+        * ResponseBody / RestController 적용이 안된 메소드 이여야한다.
+
 
 [ 실습1 ]
     resources -> static -> day58 -> index.html
@@ -65,3 +73,5 @@
     5. 학생 삭제 화면 .html
     - 공통 : 헤더와 푸터
     - 템플릿 사용하는 이유 : 공통적인 html 코드를 재사용
+
+    header.html, footer.html, index.html(메인페이지), regist.html(학생 점수 등록 페이지)

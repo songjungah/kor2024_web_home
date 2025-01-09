@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+  <!-- 헤더 호출 -->
+  <div th:replace="~{/day58/student/header.html :: header}"></div>
+
+  <!-- 본문 작성 -->
+  <div>
+      <div>
+          학생명 : <input /> <br />
+          국어점수 : <input /> <br />
+          수학점수 : <input /> <br />
+          영어점수 : <input /> <br />
+          <button type="button"> 등록 </button>
+      </div>
+  </div>
+
+
+  <!-- 푸터 호출 -->
+  <div th:replace="~{/day58/student/footer.html :: footer}"></div>
+
+</body>
+</html>
